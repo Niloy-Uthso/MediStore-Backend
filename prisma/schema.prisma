@@ -46,6 +46,10 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  role          String?   @default("user")
+  isBanned      Boolean?  @default(false)
+  phone         String?
+  address       String?
   sessions      Session[]
   accounts      Account[]
 
