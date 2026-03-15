@@ -19,7 +19,7 @@ model Medicine {
   name               String
   price              Float
   stock              Int
-  seller_id          String
+  
   medicine_image_url String
   created_at         DateTime @default(now())
   updated_at         DateTime @updatedAt

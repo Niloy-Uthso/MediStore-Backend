@@ -6,7 +6,7 @@ import { prisma } from "./prisma";
  const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
   port: 587,
-  secure: false, // Use true for port 465, false for port 587
+  secure: false,  
   auth: {
     user:  process.env.APP_USER ,
     pass: process.env.APP_PASS ,
@@ -16,7 +16,7 @@ import { prisma } from "./prisma";
  
 export const auth = betterAuth({
     database: prismaAdapter(prisma, {
-        provider: "postgresql", // or "mysql", "postgresql", ...etc
+        provider: "postgresql", 
     }),
     trustedOrigins:[process.env.FRONTEND_URL!],
      user: {
@@ -50,7 +50,7 @@ export const auth = betterAuth({
   },
  emailVerification: {
   sendOnSignUp:true,
-
+  autoSignInAfterVerification:true,
     sendVerificationEmail: async ( { user, url, token }, request) => {
     
     try{
@@ -130,4 +130,14 @@ const info = await transporter.sendMail({
     }
     },
   },  
+
+  socialProviders: {
+        google: { 
+            clientId: process.env.GOOGLE_CLIENT_ID as string, 
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string, 
+           allowDangerousEmailAccountLinking: false,
+           prompt: "select_account consent",
+          accessType: "offline", 
+          }, 
+    },
 });

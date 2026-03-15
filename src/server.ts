@@ -12,7 +12,7 @@ async function main(){
             console.log(`Server is running on port ${PORT}`);
         });
     }
-    // 👇 THIS BRACE WAS MISSING / MISPLACED EARLIER
+    
     catch (error) {
         console.error(error)
         await prisma.$disconnect();
