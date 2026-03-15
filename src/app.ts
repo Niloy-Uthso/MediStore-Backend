@@ -15,7 +15,9 @@ app.all('/api/auth/{*any}', toNodeHandler(auth));
 
 app.use(express.json());
 
-app.use("/create-medicine",medicineRouter );
+app.use("/api/seller/medicines",medicineRouter );
+
+app.use("/api/medicines",medicineRouter );
 
 
 app.get('/', (req, res) => {

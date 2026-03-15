@@ -46,7 +46,7 @@ model User {
   image         String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
-  role          String?   @default("user")
+  role          String?   @default("Customer")
   isBanned      Boolean?  @default(false)
   phone         String?
   address       String?

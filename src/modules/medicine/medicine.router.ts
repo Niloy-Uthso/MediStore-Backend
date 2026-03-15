@@ -5,8 +5,9 @@ import { any, email } from 'better-auth/*';
 
 const router = express.Router();
 export enum UserRole {
-    USER="user",
-    ADMIN="admin"
+     CUSTOMER="Customer",
+    ADMIN="Admin",
+    SELLER="Seller"
 }
 declare global{
 namespace Express {
@@ -50,13 +51,21 @@ const middleware = (...role:UserRole[])=>{
       }
 
       if(role.length && !role.includes(req.user.role as UserRole)){
-
+          console.log(req.user.role )
         return res.status(403).json({message:'You are forbidden ekhane to access this resource'})
 
       }
         next();
     }
 }
-router.post('/',middleware(UserRole.USER),medicineController.createMedicine )
+// sellers routes
+router.post('/',middleware(UserRole.SELLER),medicineController.createMedicine )
+router.put('/:id',middleware(UserRole.SELLER),)
+
+// public routes
+router.get('/',medicineController.getAllMedicines)
+router.get('/:id',medicineController.getMedicineByID)
+
+ 
  
 export const medicineRouter:Router = router;
