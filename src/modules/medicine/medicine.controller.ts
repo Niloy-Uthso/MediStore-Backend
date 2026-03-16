@@ -8,14 +8,18 @@ const createMedicine = async(req:Request, res:Response) => {
 try{
     // console.log(req.user)
     const result = await medicineService.createMedicine(req.body,req.user?.id as string);
-    console.log(result)
+    
     res.status(201).json({
         message:'Medicine created successfully'
     })
 }
 catch(error){
     console.log(error)
-    res.status(500).json({message:'Internal Server Error'})
+    res.status(500).json({
+        message:'Internal Server Error',
+        error
+
+    })
 }
 
 
@@ -76,15 +80,47 @@ const getMedicineByID= async (req: Request,res:Response)=>{
 const updateMedicine = async(req:Request,res:Response)=>{
 
     try{
-        
-        const result = await medicineService.
-    }catch(err){
+        console.log("here req",req)
+        const result = await medicineService.updateMedicine(req.params.id as string,req.body)
+        return res.status(201).json({
+            success:true,
+            message:"Medicine Updated Successfully",
+            result
 
+        })
+    }catch(err){
+                
+        return res.status(501).json({
+            success:false,
+            message:"Medicine updatation not implemented",
+            err
+        })
     }
 
+}
+
+const deleteMedicine= async(req:Request,res:Response)=>{
+    try{
+
+        const result = await medicineService.deleteMedicine(req.params.id as string)
+        return res.status(200).json({
+            success:true,
+            message:"Medicine deleted successfully",
+            result
+        })
+    }catch(e){
+        return res.status(501).json({
+            success:false,
+            message:"Medicine could not be deleted",
+            e
+        })
+
+    }
 }
 export const medicineController ={
     createMedicine,
     getAllMedicines,
-    getMedicineByID
+    getMedicineByID,
+    updateMedicine,
+    deleteMedicine
 }

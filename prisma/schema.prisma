@@ -15,7 +15,10 @@ datasource db {
 
 model Medicine {
   id                 String   @id @default(cuid())
-  category           String
+ 
+  category   Category @relation(fields: [categoryName], references: [name])
+   categoryName String
+
   name               String
   price              Float
   stock              Int
@@ -26,7 +29,44 @@ model Medicine {
   manufacturer       String
   sellerID           String
   reviews            Review[]
+  orderItems         OrderItem[]
 
+}
+model Category {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  medicines Medicine[]
+}
+
+model Order {
+  id String @id @default(cuid())
+
+  customer   User   @relation(fields: [customerId], references: [id])
+  customerId String
+
+  status String @default("Pending")
+
+  totalAmount Float
+
+  createdAt DateTime @default(now())
+
+  items OrderItem[]
+}
+
+model OrderItem {
+  id String @id @default(cuid())
+
+  order   Order @relation(fields: [orderId], references: [id])
+  orderId String
+
+  medicine   Medicine @relation(fields: [medicineId], references: [id])
+  medicineId String
+
+  quantity Int
+  price Float
 }
 
 model Review {
@@ -52,9 +92,11 @@ model User {
   address       String?
   sessions      Session[]
   accounts      Account[]
+  orders        Order[]
 
   @@unique([email])
   @@map("user")
+  
 }
 
 model Session {
