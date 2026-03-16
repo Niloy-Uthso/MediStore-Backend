@@ -10,7 +10,8 @@ try{
     const result = await medicineService.createMedicine(req.body,req.user?.id as string);
     
     res.status(201).json({
-        message:'Medicine created successfully'
+        message:'Medicine created successfully',
+        result
     })
 }
 catch(error){

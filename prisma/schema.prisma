@@ -49,10 +49,8 @@ model Order {
 
   status String @default("Pending")
 
-  totalAmount Float
-
   createdAt DateTime @default(now())
-
+   location String
   items OrderItem[]
 }
 
@@ -67,6 +65,7 @@ model OrderItem {
 
   quantity Int
   price Float
+   
 }
 
 model Review {
