@@ -5,17 +5,29 @@ const getAllUsersByAdmin = async()=>{
     return allUsers
 }
 
-const updateUserByAdmin = async(id:string,status:string)=>{
-    const updateUser = await prisma.user.update({
-  where: {
-    id: id,
-  },
-  data: {
-    status: status,
-  },
-});
-}
+const updateUserStatusByAdmin = async (id: string) => {
+
+  
+  const user = await prisma.user.findUnique({
+    where: { id }
+  });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  
+  const updatedUser = await prisma.user.update({
+    where: { id },
+    data: {
+      isBanned: !user.isBanned
+    }
+  });
+
+  return updatedUser;
+};
 
 export  const userService={
-    getAllUsersByAdmin
+    getAllUsersByAdmin,
+    updateUserStatusByAdmin
 }

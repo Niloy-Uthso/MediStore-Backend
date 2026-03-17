@@ -24,9 +24,27 @@ const getAllUser = async(req:Request,res:Response)=>{
 }
 
 const updateUserStatusByAdmin = async(req:Request,res:Response)=>{
-    const update = await 
+   try{
+const update = await userService.updateUserStatusByAdmin(req.params.id as string)
+ res.status(200).json({
+            success:true,
+            message:"User Status Updated Successfully!!!!",
+            update
+
+        })
+        
+    }catch(e){
+             
+        res.status(500).json({
+            success:false,
+            message:"Internal server error",
+            e
+        })
+    }
+    
 }
 
 export const  userController ={
-    getAllUser
+    getAllUser,
+    updateUserStatusByAdmin
 }

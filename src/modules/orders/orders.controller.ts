@@ -3,7 +3,7 @@ import { orderService } from "./orderes.service";
 
 const createOrder = async(req:Request,res:Response)=>{
     try{
-        console.log(req)
+        console.log("ekhane",req)
            const createdOrder = await orderService.createOrder(req.body,req.user?.id as string)
 
            res.status(201).json({
@@ -60,8 +60,20 @@ const updateStatus=async( req:Request,res:Response)=>{
     }
 }
 
+const getOrderAsCustomer= async(req:Request,res:Response)=>{
+    console.log("kjdfhgk",req.user?.id)
+try{
+       
+    const orders = await orderService.getOrdersofUser(req.user?.id as string)
+    
+}catch(e){
+
+}
+}
+
 export const orderController ={
     createOrder,
     getOrderasSeller,
-    updateStatus
+    updateStatus,
+    getOrderAsCustomer
 }

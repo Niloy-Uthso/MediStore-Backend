@@ -80,8 +80,14 @@ const updateStatusBySeller = async(orderId:string,status:string)=>{
 return updateStatus
 }
 
+const getOrdersofUser = async(id:string)=>{
+
+      
+}
+
 export const orderService ={
     createOrder,
     getOrdersAsSeller,
-    updateStatusBySeller
+    updateStatusBySeller,
+    getOrdersofUser
 }
