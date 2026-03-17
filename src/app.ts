@@ -5,6 +5,7 @@ import { auth } from './lib/auth';
  import cors from 'cors';
 import { MedicineCategories } from './modules/categories/categories.router';
 import { orderRouter } from './modules/orders/orders.router';
+import { userRouter } from './modules/user/user.router';
 const app:Application = express();
 app.use(cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:4000',
@@ -20,11 +21,13 @@ app.use(express.json());
 app.use("/admin/categories",MedicineCategories)
 
 app.use("/api/seller/medicines",medicineRouter );
- 
 app.use("/api/medicines",medicineRouter );
 
 app.use("/api/orders",orderRouter)
+app.use("/api/seller/orders",orderRouter)
 
+
+app.use("/api/admin/users",userRouter)
 
 
 

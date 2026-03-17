@@ -40,6 +40,48 @@ const createOrder = async (data: any, customerId: string) => {
   return order;
 };
 
+const getOrdersAsSeller = async (sellerId: string) => {
+  const orders = await prisma.order.findMany({
+    where: {
+      items: {
+        some: {
+          medicine: {
+            sellerID: sellerId
+          }
+        }
+      }
+    },
+    include: {
+      items: {
+        include: {
+          medicine: true, 
+        }
+      },
+      customer: true 
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  });
+
+  return orders;
+};
+
+const updateStatusBySeller = async(orderId:string,status:string)=>{
+
+  const updateStatus = await prisma.order.update({
+  where: {
+    id: orderId
+  },
+  data: {
+    status:status
+  },
+});
+return updateStatus
+}
+
 export const orderService ={
-    createOrder
+    createOrder,
+    getOrdersAsSeller,
+    updateStatusBySeller
 }
