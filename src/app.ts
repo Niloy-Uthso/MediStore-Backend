@@ -28,6 +28,7 @@ app.use("/api/seller/orders",orderRouter)
 
 
 app.use("/api/admin/users",userRouter)
+app.use("/api/user",userRouter)
 
 
 

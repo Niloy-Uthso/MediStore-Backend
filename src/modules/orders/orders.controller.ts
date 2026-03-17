@@ -65,9 +65,18 @@ const getOrderAsCustomer= async(req:Request,res:Response)=>{
 try{
        
     const orders = await orderService.getOrdersofUser(req.user?.id as string)
-    
+    res.status(201).json({
+        success:true,
+        message:"Your orders are retrieved",
+        orders
+    })
 }catch(e){
 
+    res.status(500).json({
+        success:false,
+        message:"Internal server error",
+        e
+    })
 }
 }
 

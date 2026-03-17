@@ -82,7 +82,20 @@ return updateStatus
 
 const getOrdersofUser = async(id:string)=>{
 
-      
+      const order = await prisma.order.findMany({
+        where:{
+          customerId:id,
+        },
+  include: {
+    items:  {
+       include:{
+        medicine :true
+       }
+    },
+  },
+});
+
+return order
 }
 
 export const orderService ={

@@ -43,8 +43,26 @@ const update = await userService.updateUserStatusByAdmin(req.params.id as string
     }
     
 }
+const getCurrentUser=async(req:Request,res:Response)=>{
+    try{
+        const getCurrentUser= await userService.getCurrentUser(req.user?.id as string)
+        res.status(200).json({
+            success:true,
+            message:"Current user retrieved",
+            getCurrentUser
+        })
+    }catch(e){
+             
+        res.status(500).json({
+            success:false,
+            message:"Internal server error",
+            e
+        })
+    }
+}
 
 export const  userController ={
     getAllUser,
-    updateUserStatusByAdmin
+    updateUserStatusByAdmin,
+    getCurrentUser
 }

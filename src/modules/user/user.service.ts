@@ -27,7 +27,19 @@ const updateUserStatusByAdmin = async (id: string) => {
   return updatedUser;
 };
 
+const  getCurrentUser =  async(id:string)=>{
+    const getCurrentUser = await prisma.user.findUnique({
+        where:{
+            id
+        }
+    })
+    return getCurrentUser
+}
+
+ 
+
 export  const userService={
     getAllUsersByAdmin,
-    updateUserStatusByAdmin
+    updateUserStatusByAdmin,
+    getCurrentUser
 }
